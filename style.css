@@ -1,0 +1,308 @@
+/* استایل اصلی */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #2ecc71;
+    --warning-color: #e74c3c;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* نوار هشدار تست */
+.test-alert {
+    background-color: #f39c12;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    direction: rtl;
+}
+
+/* سایدبار */
+.sidebar {
+    background-color: var(--primary-color);
+    color: white;
+    min-height: 100vh;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 30px;
+}
+
+.sidebar-header h3 {
+    color: var(--accent-color);
+    margin-bottom: 5px;
+}
+
+.sidebar-header p {
+    color: #bdc3c7;
+    font-size: 0.9rem;
+}
+
+.nav-link {
+    color: #ecf0f1 !important;
+    padding: 12px 25px !important;
+    border-right: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: rgba(52, 152, 219, 0.2);
+    border-right-color: var(--accent-color);
+    color: white !important;
+}
+
+.nav-link i {
+    margin-left: 10px;
+}
+
+.contact-sidebar {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.phone-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    direction: ltr;
+    text-align: center;
+}
+
+/* محتوای اصلی */
+.main-content {
+    padding: 20px;
+}
+
+.section-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-right: 5px solid var(--secondary-color);
+}
+
+.section-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.section-card h2 i {
+    color: var(--secondary-color);
+    margin-left: 10px;
+}
+
+/* فرم */
+.form-control, .form-select {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: inherit;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    justify-content: flex-start;
+}
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    margin-left: 8px;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-success {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-print {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* سند قابل چاپ */
+.printable-document {
+    background: white;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 20px 0;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #eee;
+}
+
+.print-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.print-logo i {
+    color: var(--primary-color);
+}
+
+.print-contact {
+    text-align: left;
+}
+
+.print-title h4 {
+    color: var(--warning-color);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.print-body {
+    margin: 30px 0;
+}
+
+.print-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+}
+
+.cost-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    min-width: 200px;
+}
+
+.signature {
+    text-align: center;
+}
+
+.signature-line {
+    width: 200px;
+    height: 1px;
+    background: #333;
+    margin: 10px auto;
+}
+
+.print-watermark {
+    text-align: center;
+    color: #ccc;
+    font-style: italic;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed #eee;
+}
+
+.print-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* تاریخچه */
+.table th {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+/* تنظیمات ریسپانسیو */
+@media (max-width: 768px) {
+    .sidebar {
+        min-height: auto;
+        position: static;
+    }
+    
+    .contact-sidebar {
+        position: static;
+        margin-top: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .print-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .print-footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
