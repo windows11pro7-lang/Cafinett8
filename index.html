@@ -1,201 +1,194 @@
 <!DOCTYPE html><html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>سامانه خدمات و چاپ قبض | کافی‌نت شهر</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+  <meta charset="UTF-8" />
+  <title>سامانه مهندسی‌شده صدور قبض | کافی‌نت شهر</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />  <!-- ================== STYLE ================== -->  <style>
     :root{
-      --primary:#1f2937;
-      --secondary:#374151;
-      --accent:#2563eb;
-      --bg:#f3f4f6;
+      --primary:#0f172a;   /* slate-900 */
+      --secondary:#1e293b; /* slate-800 */
+      --accent:#2563eb;    /* blue-600 */
+      --bg:#f1f5f9;        /* slate-100 */
       --card:#ffffff;
-    }*{box-sizing:border-box}
+      --border:#e5e7eb;
+    }
 
-body{
-  margin:0;
-  font-family:Tahoma, Arial, sans-serif;
-  background:var(--bg);
-  color:#111827;
-}
+    *{box-sizing:border-box}
 
-/* ====== LAYOUT ====== */
-header{
-  background:var(--primary);
-  color:#fff;
-  padding:16px 24px;
-}
-header h1{margin:0;font-size:22px}
-header p{margin:4px 0 0;font-size:13px;opacity:.8}
+    body{
+      margin:0;
+      font-family:Tahoma, Arial, sans-serif;
+      background:var(--bg);
+      color:#020617;
+    }
 
-.container{
-  max-width:1100px;
-  margin:20px auto;
-  padding:0 16px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
+    /* ===== HEADER ===== */
+    header{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff;
+      padding:18px 24px;
+    }
+    header h1{margin:0;font-size:22px}
+    header p{margin:4px 0 0;font-size:13px;opacity:.85}
 
-.card{
-  background:var(--card);
-  border-radius:12px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
-  padding:20px;
-}
+    /* ===== LAYOUT ===== */
+    .container{
+      max-width:1200px;
+      margin:24px auto;
+      padding:0 16px;
+      display:grid;
+      grid-template-columns:420px 1fr;
+      gap:24px;
+    }
 
-.card h2{
-  margin-top:0;
-  font-size:18px;
-  border-bottom:1px solid #e5e7eb;
-  padding-bottom:10px;
-}
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+      padding:20px;
+    }
 
-/* ====== FORM ====== */
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
+    .card h2{
+      margin:0 0 16px;
+      font-size:18px;
+      border-bottom:1px solid var(--border);
+      padding-bottom:10px;
+    }
 
-label{
-  font-size:13px;
-  color:#374151;
-}
+    /* ===== FORM ===== */
+    .form-group{margin-bottom:12px}
 
-input, select{
-  width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #d1d5db;
-  font-size:14px;
-}
+    label{
+      display:block;
+      font-size:13px;
+      margin-bottom:4px;
+      color:#334155;
+    }
 
-input:focus, select:focus{
-  outline:none;
-  border-color:var(--accent);
-}
+    input,select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      font-size:14px;
+    }
 
-.full{grid-column:1 / -1}
+    input:focus,select:focus{
+      outline:none;
+      border-color:var(--accent);
+    }
 
-.btn{
-  margin-top:16px;
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:var(--accent);
-  color:#fff;
-  font-size:15px;
-  cursor:pointer;
-}
+    .btn{
+      width:100%;
+      padding:12px;
+      margin-top:14px;
+      border:none;
+      border-radius:12px;
+      background:var(--accent);
+      color:#fff;
+      font-size:15px;
+      cursor:pointer;
+    }
 
-.btn.secondary{background:var(--secondary)}
+    /* ===== A4 PREVIEW ===== */
+    .preview-wrapper{
+      background:#d1d5db;
+      padding:12px;
+      border-radius:12px;
+    }
 
-/* ====== PREVIEW A4 ====== */
-.a4-wrapper{
-  background:#ccc;
-  padding:10px;
-}
+    .a4{
+      width:210mm;
+      min-height:297mm;
+      background:#fff;
+      margin:auto;
+      padding:22mm;
+      position:relative;
+      box-shadow:0 0 12px rgba(0,0,0,.25);
+    }
 
-.a4{
-  width:210mm;
-  min-height:297mm;
-  background:#fff;
-  margin:auto;
-  padding:20mm;
-  position:relative;
-  box-shadow:0 0 10px rgba(0,0,0,.2);
-}
+    .a4-header{
+      text-align:center;
+      border-bottom:2px solid #000;
+      padding-bottom:12px;
+    }
 
-.a4-header{
-  text-align:center;
-  border-bottom:2px solid #000;
-  padding-bottom:12px;
-}
+    .a4-header h3{margin:0;font-size:22px}
+    .a4-header p{margin:4px 0;font-size:13px}
 
-.a4-header h3{margin:0;font-size:22px}
-.a4-header p{margin:4px 0;font-size:13px}
+    .a4-body{
+      margin-top:22px;
+      font-size:15px;
+      line-height:2.3;
+    }
 
-.a4-body{
-  margin-top:20px;
-  font-size:15px;
-  line-height:2.2;
-}
+    .row{
+      display:flex;
+      justify-content:space-between;
+      border-bottom:1px dashed #9ca3af;
+      padding:6px 0;
+    }
 
-.row{
-  display:flex;
-  justify-content:space-between;
-  border-bottom:1px dashed #999;
-  padding:6px 0;
-}
+    .row span:first-child{font-weight:bold}
 
-.row span:first-child{font-weight:bold}
+    .a4-footer{
+      position:absolute;
+      bottom:26mm;
+      width:170mm;
+      text-align:center;
+      font-size:14px;
+    }
 
-.a4-footer{
-  position:absolute;
-  bottom:25mm;
-  width:170mm;
-  text-align:center;
-  font-size:14px;
-}
+    /* ===== PRINT ===== */
+    @media print{
+      body{background:#fff}
+      header,.card.form-card,.btn{display:none}
+      .container{grid-template-columns:1fr}
+      .preview-wrapper{padding:0;background:#fff}
+      .a4{box-shadow:none;margin:0}
+    }
 
-/* ====== PRINT ====== */
-@media print{
-  body{background:#fff}
-  header,.container>.card:first-child,.btn{display:none}
-  .container{grid-template-columns:1fr}
-  .a4-wrapper{padding:0;background:#fff}
-  .a4{box-shadow:none;margin:0}
-}
-
-@media(max-width:900px){
-  .container{grid-template-columns:1fr}
-}
-
-  </style>
-</head>
+    @media(max-width:950px){
+      .container{grid-template-columns:1fr}
+    }
+  </style></head>
 <body><header>
-  <h1>سامانه خدمات و چاپ قبض</h1>
+  <h1>سامانه مهندسی‌شده صدور قبض</h1>
   <p>کافی‌نت شهر | 09224044842</p>
-</header><div class="container">  <!-- FORM -->  <div class="card">
-    <h2>ثبت خدمت</h2>
-    <div class="form-grid"><div>
-    <label>نوع خدمت</label>
-    <select id="service">
-      <option>خلافی خودرو</option>
-      <option>طرح ترافیک</option>
-      <option>خلافی موتور</option>
-      <option>عوارض آزادراهی</option>
-      <option>سایر خدمات</option>
-    </select>
-  </div>
-
-  <div>
-    <label>نام مشتری</label>
-    <input id="customer" placeholder="اختیاری">
-  </div>
-
-  <div>
-    <label>پلاک</label>
-    <input id="plate" placeholder="ایران 12 الف 345">
-  </div>
-
-  <div>
-    <label>شماره رسید</label>
-    <input id="receiptNo" placeholder="مثلاً 1025">
-  </div>
-
-  <div class="full">
-    <label>مبلغ (تومان)</label>
-    <input id="price" placeholder="50000">
-  </div>
-
+</header><div class="container">  <!-- ===== FORM CARD ===== -->  <div class="card form-card">
+    <h2>اطلاعات قبض</h2><div class="form-group">
+  <label>نوع خدمت</label>
+  <select id="service">
+    <option>خلافی خودرو</option>
+    <option>طرح ترافیک</option>
+    <option>خلافی موتور</option>
+    <option>عوارض آزادراهی</option>
+    <option>سایر خدمات</option>
+  </select>
 </div>
 
-<button class="btn" onclick="updatePreview()">پیش‌نمایش قبض</button>
+<div class="form-group">
+  <label>نام مشتری</label>
+  <input id="customer" placeholder="اختیاری" />
+</div>
 
-  </div>  <!-- PREVIEW -->  <div class="card a4-wrapper">
+<div class="form-group">
+  <label>پلاک</label>
+  <input id="plate" placeholder="ایران 12 الف 345" />
+</div>
+
+<div class="form-group">
+  <label>شماره قبض (خودکار)</label>
+  <input id="serial" disabled />
+</div>
+
+<div class="form-group">
+  <label>مبلغ (تومان)</label>
+  <input id="price" />
+</div>
+
+<button class="btn" onclick="generateReceipt()">به‌روزرسانی پیش‌نمایش</button>
+
+  </div>  <!-- ===== PREVIEW ===== -->  <div class="preview-wrapper">
     <div class="a4" id="a4"><div class="a4-header">
     <h3>کافی‌نت شهر</h3>
     <p>سامانه خدمات الکترونیک</p>
@@ -203,31 +196,53 @@ input:focus, select:focus{
   </div>
 
   <div class="a4-body">
-    <div class="row"><span>شماره رسید</span><span id="pReceipt">-</span></div>
+    <div class="row"><span>شماره قبض</span><span id="pSerial">-</span></div>
     <div class="row"><span>نوع خدمت</span><span id="pService">-</span></div>
     <div class="row"><span>نام مشتری</span><span id="pCustomer">-</span></div>
     <div class="row"><span>پلاک</span><span id="pPlate">-</span></div>
     <div class="row"><span>مبلغ پرداختی</span><span id="pPrice">-</span></div>
-    <div class="row"><span>تاریخ و ساعت</span><span id="pDate">-</span></div>
+    <div class="row"><span>تاریخ</span><span id="pDate">-</span></div>
   </div>
 
   <div class="a4-footer">
     <p>امضا و مهر مرکز</p>
-    <p>این رسید صرفاً جهت ارائه خدمات صادر شده است</p>
+    <p>این قبض صرفاً جهت ارائه خدمات صادر شده است</p>
   </div>
-
 </div>
 
-<button class="btn secondary" onclick="window.print()">چاپ قبض</button>
+<button class="btn" onclick="window.print()">چاپ قبض</button>
 
-  </div></div><script>
-  function updatePreview(){
-    document.getElementById('pService').innerText = document.getElementById('service').value;
-    document.getElementById('pCustomer').innerText = document.getElementById('customer').value || '-';
-    document.getElementById('pPlate').innerText = document.getElementById('plate').value || '-';
-    document.getElementById('pReceipt').innerText = document.getElementById('receiptNo').value || '-';
-    document.getElementById('pPrice').innerText = document.getElementById('price').value + ' تومان';
-    document.getElementById('pDate').innerText = new Date().toLocaleString('fa-IR');
+  </div></div><!-- ================== SCRIPT ================== --><script>
+  /* ---- SERIAL MANAGEMENT ---- */
+  function nextSerial(){
+    let s = localStorage.getItem('receiptSerial');
+    s = s ? parseInt(s)+1 : 1001;
+    localStorage.setItem('receiptSerial', s);
+    return s;
   }
+
+  const serialInput = document.getElementById('serial');
+  const currentSerial = nextSerial();
+  serialInput.value = currentSerial;
+
+  /* ---- DATE (PERSIAN, CORRECT) ---- */
+  function persianDate(){
+    return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{
+      year:'numeric',month:'2-digit',day:'2-digit',
+      hour:'2-digit',minute:'2-digit'
+    }).format(new Date());
+  }
+
+  /* ---- UPDATE PREVIEW ---- */
+  function generateReceipt(){
+    document.getElementById('pSerial').innerText = serialInput.value;
+    document.getElementById('pService').innerText = service.value;
+    document.getElementById('pCustomer').innerText = customer.value || '-';
+    document.getElementById('pPlate').innerText = plate.value || '-';
+    document.getElementById('pPrice').innerText = price.value + ' تومان';
+    document.getElementById('pDate').innerText = persianDate();
+  }
+
+  generateReceipt();
 </script></body>
 </html>
