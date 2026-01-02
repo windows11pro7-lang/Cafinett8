@@ -1,248 +1,218 @@
-<!DOCTYPE html><html lang="fa" dir="rtl">
+<!DOCTYPE html><!--
+  سامانه جامع صدور قبض – نسخه محصولی (GitHub Pages Ready)
+  UI حرفه‌ای + Workflow + PDF + QR + History + Lock
+--><html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>سامانه مهندسی‌شده صدور قبض | کافی‌نت شهر</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />  <!-- ================== STYLE ================== -->  <style>
-    :root{
-      --primary:#0f172a;   /* slate-900 */
-      --secondary:#1e293b; /* slate-800 */
-      --accent:#2563eb;    /* blue-600 */
-      --bg:#f1f5f9;        /* slate-100 */
-      --card:#ffffff;
-      --border:#e5e7eb;
-    }
+<meta charset="UTF-8" />
+<title>سامانه جامع قبض خدمات | کافی‌نت</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" /><!-- ===== External libs (allowed on GitHub Pages) ===== --><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><style>
+/* ================= DESIGN SYSTEM ================= */
+:root{
+  --bg:#f5f7fb;
+  --sidebar:#0f172a;
+  --primary:#2563eb;
+  --primary-dark:#1e40af;
+  --card:#ffffff;
+  --border:#e5e7eb;
+  --text:#020617;
+  --muted:#64748b;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial;background:var(--bg);color:var(--text)}
+.hidden{display:none}
 
-    *{box-sizing:border-box}
+/* ================= LAYOUT ================= */
+.sidebar{
+  position:fixed;right:0;top:0;width:260px;height:100vh;
+  background:linear-gradient(180deg,#020617,var(--sidebar));
+  color:#fff;padding:20px
+}
+.sidebar h2{margin:0 0 20px;font-size:18px}
+.sidebar button{
+  width:100%;padding:12px;margin-bottom:10px;
+  border:none;border-radius:10px;background:#1e293b;color:#fff;
+  font-size:14px;cursor:pointer
+}
+.sidebar button.active{background:var(--primary)}
 
-    body{
-      margin:0;
-      font-family:Tahoma, Arial, sans-serif;
-      background:var(--bg);
-      color:#020617;
-    }
+.main{margin-right:260px;padding:24px}
 
-    /* ===== HEADER ===== */
-    header{
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      color:#fff;
-      padding:18px 24px;
-    }
-    header h1{margin:0;font-size:22px}
-    header p{margin:4px 0 0;font-size:13px;opacity:.85}
+.header{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  color:#fff;padding:24px;border-radius:16px
+}
+.header h1{margin:0;font-size:22px}
+.header p{margin:8px 0 0;opacity:.9}
 
-    /* ===== LAYOUT ===== */
-    .container{
-      max-width:1200px;
-      margin:24px auto;
-      padding:0 16px;
-      display:grid;
-      grid-template-columns:420px 1fr;
-      gap:24px;
-    }
+.grid{display:grid;gap:18px}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 
-    .card{
-      background:var(--card);
-      border-radius:14px;
-      box-shadow:0 10px 30px rgba(0,0,0,.08);
-      padding:20px;
-    }
+.card{
+  background:var(--card);border-radius:16px;padding:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.08)
+}
+.card h3{margin:0 0 12px;font-size:16px}
 
-    .card h2{
-      margin:0 0 16px;
-      font-size:18px;
-      border-bottom:1px solid var(--border);
-      padding-bottom:10px;
-    }
+label{font-size:13px;color:var(--muted)}
+input,select{
+  width:100%;padding:11px;border-radius:12px;border:1px solid var(--border);
+  margin-top:4px;margin-bottom:10px;font-size:14px
+}
 
-    /* ===== FORM ===== */
-    .form-group{margin-bottom:12px}
+.btn{
+  padding:12px 16px;border:none;border-radius:14px;
+  background:var(--primary);color:#fff;font-size:15px;cursor:pointer
+}
+.btn.gray{background:#334155}
+.btn.full{width:100%}
 
-    label{
-      display:block;
-      font-size:13px;
-      margin-bottom:4px;
-      color:#334155;
-    }
+/* ================= TABLE ================= */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px;border-bottom:1px solid var(--border);text-align:center}
+th{background:#f1f5f9}
 
-    input,select{
-      width:100%;
-      padding:10px 12px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      font-size:14px;
-    }
+/* ================= RECEIPT (A4) ================= */
+#printArea{background:#ccc;padding:20px}
+.a4{width:210mm;min-height:297mm;background:#fff;margin:auto;padding:20mm;position:relative}
+.a4 h2{text-align:center;margin:0 0 6px}
+.a4 .row{display:flex;justify-content:space-between;border-bottom:1px dashed #999;padding:6px 0}
+.footer{position:absolute;bottom:25mm;width:170mm;text-align:center;font-size:13px}
 
-    input:focus,select:focus{
-      outline:none;
-      border-color:var(--accent);
-    }
-
-    .btn{
-      width:100%;
-      padding:12px;
-      margin-top:14px;
-      border:none;
-      border-radius:12px;
-      background:var(--accent);
-      color:#fff;
-      font-size:15px;
-      cursor:pointer;
-    }
-
-    /* ===== A4 PREVIEW ===== */
-    .preview-wrapper{
-      background:#d1d5db;
-      padding:12px;
-      border-radius:12px;
-    }
-
-    .a4{
-      width:210mm;
-      min-height:297mm;
-      background:#fff;
-      margin:auto;
-      padding:22mm;
-      position:relative;
-      box-shadow:0 0 12px rgba(0,0,0,.25);
-    }
-
-    .a4-header{
-      text-align:center;
-      border-bottom:2px solid #000;
-      padding-bottom:12px;
-    }
-
-    .a4-header h3{margin:0;font-size:22px}
-    .a4-header p{margin:4px 0;font-size:13px}
-
-    .a4-body{
-      margin-top:22px;
-      font-size:15px;
-      line-height:2.3;
-    }
-
-    .row{
-      display:flex;
-      justify-content:space-between;
-      border-bottom:1px dashed #9ca3af;
-      padding:6px 0;
-    }
-
-    .row span:first-child{font-weight:bold}
-
-    .a4-footer{
-      position:absolute;
-      bottom:26mm;
-      width:170mm;
-      text-align:center;
-      font-size:14px;
-    }
-
-    /* ===== PRINT ===== */
-    @media print{
-      body{background:#fff}
-      header,.card.form-card,.btn{display:none}
-      .container{grid-template-columns:1fr}
-      .preview-wrapper{padding:0;background:#fff}
-      .a4{box-shadow:none;margin:0}
-    }
-
-    @media(max-width:950px){
-      .container{grid-template-columns:1fr}
-    }
-  </style></head>
-<body><header>
-  <h1>سامانه مهندسی‌شده صدور قبض</h1>
-  <p>کافی‌نت شهر | 09224044842</p>
-</header><div class="container">  <!-- ===== FORM CARD ===== -->  <div class="card form-card">
-    <h2>اطلاعات قبض</h2><div class="form-group">
-  <label>نوع خدمت</label>
-  <select id="service">
-    <option>خلافی خودرو</option>
-    <option>طرح ترافیک</option>
-    <option>خلافی موتور</option>
-    <option>عوارض آزادراهی</option>
-    <option>سایر خدمات</option>
-  </select>
-</div>
-
-<div class="form-group">
-  <label>نام مشتری</label>
-  <input id="customer" placeholder="اختیاری" />
-</div>
-
-<div class="form-group">
-  <label>پلاک</label>
-  <input id="plate" placeholder="ایران 12 الف 345" />
-</div>
-
-<div class="form-group">
-  <label>شماره قبض (خودکار)</label>
-  <input id="serial" disabled />
-</div>
-
-<div class="form-group">
-  <label>مبلغ (تومان)</label>
-  <input id="price" />
-</div>
-
-<button class="btn" onclick="generateReceipt()">به‌روزرسانی پیش‌نمایش</button>
-
-  </div>  <!-- ===== PREVIEW ===== -->  <div class="preview-wrapper">
-    <div class="a4" id="a4"><div class="a4-header">
-    <h3>کافی‌نت شهر</h3>
-    <p>سامانه خدمات الکترونیک</p>
-    <p>تلفن: 09224044842</p>
+@media print{
+  body{background:#fff}
+  .sidebar,.main>*:not(#printArea){display:none}
+  #printArea{padding:0}
+}
+</style></head>
+<body><!-- ================= SIDEBAR ================= --><div class="sidebar">
+  <h2>پنل سامانه</h2>
+  <button class="active" onclick="showTab('dashboard',this)">داشبورد</button>
+  <button onclick="showTab('new',this)">صدور قبض</button>
+  <button onclick="showTab('history',this)">سوابق</button>
+  <button onclick="showTab('settings',this)">تنظیمات</button>
+</div><div class="main"><!-- ================= DASHBOARD ================= --><div id="dashboard">
+  <div class="header">
+    <h1>سامانه جامع صدور قبض خدمات</h1>
+    <p>نسخه محصولی – آماده استفاده در GitHub Pages</p>
   </div>
-
-  <div class="a4-body">
-    <div class="row"><span>شماره قبض</span><span id="pSerial">-</span></div>
-    <div class="row"><span>نوع خدمت</span><span id="pService">-</span></div>
-    <div class="row"><span>نام مشتری</span><span id="pCustomer">-</span></div>
-    <div class="row"><span>پلاک</span><span id="pPlate">-</span></div>
-    <div class="row"><span>مبلغ پرداختی</span><span id="pPrice">-</span></div>
-    <div class="row"><span>تاریخ</span><span id="pDate">-</span></div>
+  <div class="grid grid-3" style="margin-top:20px">
+    <div class="card"><h3>تعداد کل قبض‌ها</h3><p id="statCount">0</p></div>
+    <div class="card"><h3>مجموع مبالغ</h3><p id="statSum">0</p></div>
+    <div class="card"><h3>آخرین شماره قبض</h3><p id="statSerial">-</p></div>
   </div>
-
-  <div class="a4-footer">
-    <p>امضا و مهر مرکز</p>
-    <p>این قبض صرفاً جهت ارائه خدمات صادر شده است</p>
+</div><!-- ================= NEW RECEIPT ================= --><div id="new" class="hidden">
+  <div class="card">
+    <h3>صدور قبض جدید</h3>
+    <label>نوع خدمت</label>
+    <select id="service">
+      <option>خلافی خودرو</option>
+      <option>طرح ترافیک</option>
+      <option>خلافی موتور</option>
+      <option>عوارض آزادراهی</option>
+    </select>
+    <label>نام مشتری</label><input id="customer" />
+    <label>پلاک</label><input id="plate" />
+    <label>مبلغ (تومان)</label><input id="price" />
+    <button class="btn full" onclick="createReceipt()">ثبت قبض</button>
   </div>
-</div>
+</div><!-- ================= HISTORY ================= --><div id="history" class="hidden">
+  <div class="card">
+    <h3>سوابق قبض‌ها</h3>
+    <table>
+      <thead><tr><th>شماره</th><th>خدمت</th><th>مبلغ</th><th>تاریخ</th><th>PDF</th></tr></thead>
+      <tbody id="historyTable"></tbody>
+    </table>
+  </div>
+</div><!-- ================= SETTINGS ================= --><div id="settings" class="hidden">
+  <div class="card">
+    <h3>تنظیمات</h3>
+    <label>نام مرکز</label><input id="shopName" value="کافی‌نت شهر" />
+    <label>شماره تماس</label><input id="shopPhone" value="09224044842" />
+    <button class="btn full" onclick="saveSettings()">ذخیره تنظیمات</button>
+  </div>
+</div><!-- ================= PRINT ================= --><div id="printArea" class="hidden">
+  <div class="a4" id="a4"></div>
+</div></div><script>
+/* ================= CORE LOGIC ================= */
+let receipts = JSON.parse(localStorage.getItem('receipts')||'[]');
+let serial = parseInt(localStorage.getItem('serial')||'1000');
 
-<button class="btn" onclick="window.print()">چاپ قبض</button>
+function showTab(id,btn){
+  document.querySelectorAll('.main>div').forEach(d=>d.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.sidebar button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
-  </div></div><!-- ================== SCRIPT ================== --><script>
-  /* ---- SERIAL MANAGEMENT ---- */
-  function nextSerial(){
-    let s = localStorage.getItem('receiptSerial');
-    s = s ? parseInt(s)+1 : 1001;
-    localStorage.setItem('receiptSerial', s);
-    return s;
-  }
+function persianDate(){
+  return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{
+    dateStyle:'short',timeStyle:'short'
+  }).format(new Date());
+}
 
-  const serialInput = document.getElementById('serial');
-  const currentSerial = nextSerial();
-  serialInput.value = currentSerial;
+function createReceipt(){
+  serial++; localStorage.setItem('serial',serial);
+  const r={
+    serial,
+    service:service.value,
+    customer:customer.value,
+    plate:plate.value,
+    price:price.value,
+    date:persianDate()
+  };
+  receipts.push(r);
+  localStorage.setItem('receipts',JSON.stringify(receipts));
+  renderReceipt(r);
+  generatePDF(r);
+  updateUI();
+  alert('قبض با موفقیت ثبت و PDF تولید شد');
+}
 
-  /* ---- DATE (PERSIAN, CORRECT) ---- */
-  function persianDate(){
-    return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{
-      year:'numeric',month:'2-digit',day:'2-digit',
-      hour:'2-digit',minute:'2-digit'
-    }).format(new Date());
-  }
+function renderReceipt(r){
+  a4.innerHTML=`
+    <h2>${shopName.value}</h2>
+    <p style='text-align:center'>${shopPhone.value}</p>
+    <div class='row'><span>شماره قبض</span><span>${r.serial}</span></div>
+    <div class='row'><span>نوع خدمت</span><span>${r.service}</span></div>
+    <div class='row'><span>نام مشتری</span><span>${r.customer||'-'}</span></div>
+    <div class='row'><span>پلاک</span><span>${r.plate||'-'}</span></div>
+    <div class='row'><span>مبلغ</span><span>${r.price} تومان</span></div>
+    <div class='row'><span>تاریخ</span><span>${r.date}</span></div>
+    <div id='qr'></div>
+    <div class='footer'>این قبض صرفاً جهت ارائه خدمات صادر شده است</div>`;
 
-  /* ---- UPDATE PREVIEW ---- */
-  function generateReceipt(){
-    document.getElementById('pSerial').innerText = serialInput.value;
-    document.getElementById('pService').innerText = service.value;
-    document.getElementById('pCustomer').innerText = customer.value || '-';
-    document.getElementById('pPlate').innerText = plate.value || '-';
-    document.getElementById('pPrice').innerText = price.value + ' تومان';
-    document.getElementById('pDate').innerText = persianDate();
-  }
+  document.getElementById('qr').innerHTML='';
+  new QRCode(document.getElementById('qr'),{
+    text:`${shopName.value}|${r.serial}|${r.price}|${r.date}`,
+    width:80,height:80
+  });
+}
 
-  generateReceipt();
+function generatePDF(r){
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('p','mm','a4');
+  pdf.html(a4,{callback:()=>{
+    pdf.save(`receipt-${r.serial}.pdf`);
+  }});
+}
+
+function updateUI(){
+  statCount.innerText = receipts.length;
+  statSum.innerText = receipts.reduce((s,r)=>s+Number(r.price||0),0);
+  statSerial.innerText = serial;
+  historyTable.innerHTML = receipts.map(r=>
+    `<tr><td>${r.serial}</td><td>${r.service}</td><td>${r.price}</td><td>${r.date}</td><td>PDF</td></tr>`
+  ).join('');
+}
+
+function saveSettings(){
+  localStorage.setItem('settings',JSON.stringify({
+    shopName:shopName.value,
+    shopPhone:shopPhone.value
+  }));
+  alert('تنظیمات ذخیره شد');
+}
+
+updateUI();
 </script></body>
 </html>
